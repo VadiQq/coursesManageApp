@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CoursesManageApp.Models.CourseModel>
+
+@{
+    ViewData["Title"] = "CoursesList";
+}
+
+<h1>CoursesList</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Day)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id" data-day="@item.Day" data-start-time="@item.StartTime" data-end-time="@item.EndTime" class="course-details">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Day)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{await Html.RenderPartialAsync("Calendar");}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    var courseCells;
+    $(".course-details").mouseover(function (e) {
+        let day = this.dataset.day;
+        let start_time = this.dataset.startTime;
+        let end_time = this.dataset.endTime;
+        var calendarCells = $('td*[data-day="' + day + '"]');
+
+        courseCells = calendarCells.map(function (index, e) {
+            let element = $(e);
+            let elementTime = element.data('time');
+            if (!elementTime >= start_time.substring(0, start_time.length - 3)) {
+              
+            }
+
+            if (elementTime < end_time && elementTime >= start_time.substring(0, start_time.length - 3)) {
+                return e;
+            };
+        });
+
+        courseCells.addClass("red-background");
+        $("#calendar").show();
+        $("#calendar").css({
+            top: e.pageY,
+            left: e.pageX
+        });
+    }).mouseout(function () {
+        courseCells.removeClass("red-background");
+        $("#calendar").hide();
+    });
+</script>

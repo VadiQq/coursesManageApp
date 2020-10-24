@@ -1,0 +1,47 @@
+﻿<table border="1" style="border: 2px solid black;display:none; position: absolute; background-color:white" id="calendar">
+    <thead>
+        <tr>
+            <th style="width:80px">
+
+            </th>
+            <th style="width:80px">
+                Monday
+            </th>
+            <th style="width:80px">
+                Tuesday
+            </th>
+            <th style="width:80px">
+                Wednesday
+            </th>
+            <th style="width:80px">
+                Thursday
+            </th>
+            <th style="width:80px">
+                Friday
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 9; i <= 17; i++)
+        {
+            var time = "";
+            @if (i < 10)
+            {
+                time = $"0{i}:00";
+
+            }
+            else
+            {
+                time = $"{i}:00";
+            }
+            <tr>
+                <td>@time</td>
+                <td data-day="Monday" data-time="@time"></td>
+                <td data-day="Tuesday" data-time="@time"></td>
+                <td data-day="Wednesday" data-time="@time"></td>
+                <td data-day="Thursday" data-time="@time"></td>
+                <td data-day="Friday" data-time="@time" style="width:80px"></td>
+            </tr>
+        }
+    </tbody>
+</table>
