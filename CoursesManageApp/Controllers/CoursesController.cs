@@ -32,7 +32,7 @@ namespace CoursesManageApp.Controllers
                 StartTime = course.CourseTime.StartTime
             }).ToArray();
 
-            return View(courses);
+            return View(coursesModel);
         }
 
         [HttpGet]

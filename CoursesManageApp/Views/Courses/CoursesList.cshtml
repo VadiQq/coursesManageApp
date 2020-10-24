@@ -71,11 +71,8 @@
         courseCells = calendarCells.map(function (index, e) {
             let element = $(e);
             let elementTime = element.data('time');
-            if (!elementTime >= start_time.substring(0, start_time.length - 3)) {
-              
-            }
 
-            if (elementTime < end_time && elementTime >= start_time.substring(0, start_time.length - 3)) {
+            if (elementTime < end_time.substring(0, end_time.length - 3) && elementTime >= start_time.substring(0, start_time.length - 3)) {
                 return e;
             };
         });
